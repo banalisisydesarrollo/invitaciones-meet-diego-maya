@@ -21,7 +21,8 @@ function isValidMeetLink(link) {
 }
 
 export default function handler(req, res) {
-  const params = new URL(req.url, `https://${req.headers.host}`).searchParams;
+  const requestUrl = new URL(req.url, `https://${req.headers.host}`);
+  const params = requestUrl.searchParams;
 
   const title =
     params.get('titulo') || 'REUNIÓN VIRTUAL';
@@ -41,25 +42,31 @@ export default function handler(req, res) {
   const meet =
     params.get('meet') || '';
 
-  // Dominio oficial de producción
   const baseUrl =
-    'https://invitaciones-meet-diego-maya.vercel.app';
+    requestUrl.origin;
 
-  // Conservamos todos los datos de la invitación
+  /*
+   * Construimos nuevamente los parámetros para mantener
+   * una URL limpia y consistente.
+   */
   const query = new URLSearchParams({
     titulo: title,
     descripcion: description,
     fecha: date,
     inicio: start,
     fin: end,
-    meet: meet
+    meet: meet,
   }).toString();
 
-  // URL que abrirá el usuario
+  /*
+   * URL canónica de esta invitación.
+   */
   const invitationUrl =
-    `${baseUrl}/?${query}`;
+    `${baseUrl}/api/invitacion?${query}`;
 
-  // Imagen que utilizará WhatsApp como vista previa
+  /*
+   * URL de la imagen Open Graph.
+   */
   const ogUrl =
     `${baseUrl}/api/og?${query}`;
 
@@ -84,7 +91,11 @@ export default function handler(req, res) {
   >
 
   <!-- OPEN GRAPH -->
-  <meta property="og:type" content="website">
+
+  <meta
+    property="og:type"
+    content="website"
+  >
 
   <meta
     property="og:title"
@@ -128,10 +139,11 @@ export default function handler(req, res) {
 
   <meta
     property="og:url"
-    content="${escapeHtml(`${baseUrl}/api/invitacion?${query}`)}"
+    content="${escapeHtml(invitationUrl)}"
   >
 
-  <!-- TWITTER / WHATSAPP -->
+  <!-- TWITTER / WHATSAPP COMPATIBILITY -->
+
   <meta
     name="twitter:card"
     content="summary_large_image"
@@ -152,45 +164,41 @@ export default function handler(req, res) {
     content="${escapeHtml(ogUrl)}"
   >
 
-  <!-- CANONICAL -->
-  <link
-    rel="canonical"
-    href="${escapeHtml(invitationUrl)}"
-  >
-
-  <!--
-    Redirección para usuarios normales.
-    WhatsApp y otros rastreadores pueden leer
-    primero los metadatos Open Graph.
-  -->
-  <meta
-    http-equiv="refresh"
-    content="0;url=${escapeHtml(invitationUrl)}"
-  >
-
 </head>
 
 <body>
 
-  <p>Abriendo la invitación…</p>
+  <h1>${escapeHtml(title)}</h1>
+
+  <p>${escapeHtml(description)}</p>
+
+  <p>
+    <strong>Fecha:</strong>
+    ${escapeHtml(date)}
+  </p>
+
+  <p>
+    <strong>Hora:</strong>
+    ${escapeHtml(start)} - ${escapeHtml(end)}
+  </p>
+
+  ${
+    isValidMeetLink(meet)
+      ? `
+        <p>
+          <a href="${escapeHtml(meet)}">
+            Ingresar a Google Meet
+          </a>
+        </p>
+      `
+      : ''
+  }
 
   <p>
     <a href="${escapeHtml(invitationUrl)}">
       Abrir invitación
     </a>
   </p>
-
-  ${
-    isValidMeetLink(meet)
-      ? `
-  <p>
-    <a href="${escapeHtml(meet)}">
-      Ingresar a Google Meet
-    </a>
-  </p>
-  `
-      : ''
-  }
 
 </body>
 </html>`;
@@ -200,9 +208,13 @@ export default function handler(req, res) {
     'text/html; charset=utf-8'
   );
 
+  /*
+   * Evitamos que Vercel/WhatsApp conserve demasiado tiempo
+   * una versión anterior de los metadatos.
+   */
   res.setHeader(
     'Cache-Control',
-    'public, max-age=0, s-maxage=60, stale-while-revalidate=3600'
+    'public, max-age=0, s-maxage=60, stale-while-revalidate=60'
   );
 
   res.status(200).send(html);

@@ -707,31 +707,27 @@
         meet: data.meet,
       });
 
-      const productionUrl = "https://invitaciones-meet-diego-maya.vercel.app";
-      const invitationUrl = `${productionUrl}/api/invitacion?${params.toString()}`;
+      const productionUrl =
+        'https://invitaciones-meet-diego-maya.vercel.app';
+
+      const invitationUrl =
+        `${productionUrl}/api/invitacion?${params.toString()}`;
 
       const message =
         `📢 ${data.title}\n\n` +
         `📅 Fecha: ${capitalize(formatDate(data.date))}\n` +
-        `🕘 Hora: ${formatTime(data.start)} – ${formatTime(data.end)}\n` +
+        `🕘 Hora: ${formatTime(data.start)} - ${formatTime(data.end)}\n` +
         `💻 Modalidad: Google Meet\n\n` +
         `${data.description}\n\n` +
-        `👉 Ingresa a la invitación:\n${invitationUrl}`;
+        `👉 Ingresa a la invitación:\n` +
+        `${invitationUrl}`;
 
       window.open(
         `https://wa.me/?text=${encodeURIComponent(message)}`,
-        "_blank",
-        "noopener,noreferrer"
+        '_blank',
+        'noopener,noreferrer'
       );
     }
-
-
-
-
-
-
-
-
 
     $("form").addEventListener("submit", (e) => {
       e.preventDefault();
