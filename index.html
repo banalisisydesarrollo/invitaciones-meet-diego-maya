@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#123b7a">
+  <meta name="description" content="Generador de invitaciones para reuniones Google Meet - Institución Educativa Diego Maya Salazar">
+  <meta property="og:title" content="Invitación para reunión virtual">
+  <meta property="og:description" content="Invitación para reunión virtual de la Institución Educativa Diego Maya Salazar.">
+  <meta property="og:type" content="website">
   <title>Invitaciones Meet | Diego Maya Salazar</title>
+
   <style>
     :root {
       --blue: #123b7a;
@@ -15,14 +20,18 @@
       --border: #dbe4f0;
       --bg: #eef4fb;
       --white: #fff;
+      --danger: #c62828;
     }
+
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
       background: linear-gradient(135deg, #edf4ff, #f8fbff);
     }
+
     .topbar {
       background: var(--blue);
       color: white;
@@ -30,32 +39,39 @@
       font-weight: 700;
       letter-spacing: .2px;
     }
+
     .container {
       width: min(1180px, calc(100% - 32px));
       margin: 28px auto 50px;
     }
+
     .intro h1 { margin: 0 0 8px; font-size: 30px; }
     .intro p { margin: 0 0 24px; color: var(--muted); }
+
     .grid {
       display: grid;
       grid-template-columns: minmax(280px, 390px) 1fr;
       gap: 26px;
       align-items: start;
     }
+
     .panel, .card-wrap {
       background: white;
       border: 1px solid var(--border);
       border-radius: 20px;
       box-shadow: 0 12px 35px rgba(18,59,122,.10);
     }
+
     .panel { padding: 22px; }
     .panel h2 { margin: 0 0 18px; font-size: 20px; }
+
     label {
       display: block;
       margin: 13px 0 6px;
       font-size: 13px;
       font-weight: 700;
     }
+
     input, textarea {
       width: 100%;
       border: 1px solid #cbd5e1;
@@ -65,9 +81,20 @@
       outline: none;
       background: #fff;
     }
-    input:focus, textarea:focus { border-color: var(--blue2); box-shadow: 0 0 0 3px rgba(20,100,210,.10); }
+
+    input:focus, textarea:focus {
+      border-color: var(--blue2);
+      box-shadow: 0 0 0 3px rgba(20,100,210,.10);
+    }
+
     textarea { min-height: 80px; resize: vertical; }
-    .actions { display: grid; gap: 10px; margin-top: 18px; }
+
+    .actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
     button {
       border: 0;
       border-radius: 11px;
@@ -76,8 +103,16 @@
       cursor: pointer;
       font-size: 15px;
     }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
     .primary { background: var(--blue); color: white; }
     .secondary { background: #e9f1ff; color: var(--blue); }
+    .whatsapp { background: #20b958; color: white; }
+
     .hint {
       margin-top: 14px;
       padding: 11px 12px;
@@ -87,8 +122,36 @@
       font-size: 12px;
       line-height: 1.45;
     }
+
+    .status {
+      display: none;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status.ok {
+      display: block;
+      background: #eaf8f0;
+      color: #13763b;
+    }
+
+    .status.error {
+      display: block;
+      background: #fff0f0;
+      color: var(--danger);
+    }
+
+    .share-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
     .card-wrap { padding: 18px; overflow: hidden; }
     .preview-title { font-size: 14px; color: var(--muted); margin: 0 0 12px; }
+
     .invite {
       width: min(720px, 100%);
       margin: 0 auto;
@@ -98,17 +161,20 @@
       border: 1px solid #d9e3ef;
       box-shadow: 0 16px 45px rgba(15,55,100,.13);
     }
+
     .membrete {
       display: block;
       width: 100%;
       height: auto;
       background: white;
     }
+
     .hero {
       padding: 34px 34px 26px;
       text-align: center;
       background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
     }
+
     .eyebrow {
       color: var(--blue2);
       font-size: 14px;
@@ -116,12 +182,14 @@
       letter-spacing: 1.3px;
       margin-bottom: 8px;
     }
+
     .title {
       margin: 0;
       font-size: clamp(28px, 5vw, 44px);
       line-height: 1.04;
       color: var(--blue);
     }
+
     .description {
       margin: 16px auto 0;
       max-width: 570px;
@@ -129,6 +197,7 @@
       line-height: 1.5;
       color: #526277;
     }
+
     .meet-icon {
       width: 78px;
       height: 78px;
@@ -140,12 +209,14 @@
       color: var(--blue2);
       font-size: 39px;
     }
+
     .details {
       margin: 0 30px 24px;
       border: 1px solid #dce7f3;
       border-radius: 16px;
       overflow: hidden;
     }
+
     .detail {
       display: grid;
       grid-template-columns: 58px 1fr;
@@ -153,7 +224,9 @@
       align-items: center;
       padding: 16px 18px;
     }
+
     .detail + .detail { border-top: 1px solid #e4ebf3; }
+
     .icon {
       width: 44px;
       height: 44px;
@@ -163,8 +236,20 @@
       place-items: center;
       font-size: 21px;
     }
-    .label { color: var(--blue2); font-size: 12px; font-weight: 800; letter-spacing: .7px; }
-    .value { margin-top: 3px; font-size: 16px; font-weight: 700; }
+
+    .label {
+      color: var(--blue2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .7px;
+    }
+
+    .value {
+      margin-top: 3px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
     .join {
       margin: 0 30px 24px;
       padding: 22px;
@@ -173,7 +258,9 @@
       text-align: center;
       color: white;
     }
+
     .join p { margin: 0 0 14px; font-weight: 700; }
+
     .join-button {
       display: inline-block;
       min-width: min(100%, 360px);
@@ -186,11 +273,13 @@
       font-size: 17px;
       box-shadow: 0 7px 18px rgba(24,184,90,.28);
     }
+
     .join-button.disabled {
       background: #6b7b91;
       pointer-events: none;
       box-shadow: none;
     }
+
     .linkbox {
       margin: 0 30px 26px;
       padding: 15px 17px;
@@ -200,36 +289,61 @@
       word-break: break-all;
       font-size: 14px;
     }
-    .linkbox strong { display:block; margin-bottom: 5px; color: var(--blue); }
+
+    .linkbox strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--blue);
+    }
+
     .footer {
       padding: 0 30px 28px;
       text-align: center;
       color: #526277;
       font-size: 14px;
     }
+
     .footer b { color: var(--blue2); }
+
     @media (max-width: 820px) {
       .grid { grid-template-columns: 1fr; }
       .panel { order: 1; }
       .card-wrap { order: 2; }
     }
+
     @media (max-width: 520px) {
-      .container { width: min(100% - 18px, 1180px); margin-top: 18px; }
+      .container {
+        width: min(100% - 18px, 1180px);
+        margin-top: 18px;
+      }
+
       .panel { padding: 17px; }
       .hero { padding: 25px 18px 20px; }
-      .details, .join, .linkbox { margin-left: 15px; margin-right: 15px; }
-      .detail { grid-template-columns: 48px 1fr; padding: 13px; }
+      .details, .join, .linkbox {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      .detail {
+        grid-template-columns: 48px 1fr;
+        padding: 13px;
+      }
+
       .value { font-size: 14px; }
     }
   </style>
 </head>
+
 <body>
   <div class="topbar">Generador de Invitaciones · Google Meet</div>
 
   <main class="container">
     <section class="intro">
       <h1>Invitación para reunión virtual</h1>
-      <p>Modifica los datos y la tarjeta se actualiza automáticamente. El botón verde abrirá el enlace real de Google Meet.</p>
+      <p>
+        Escribe los datos de la reunión, pega el enlace real de Google Meet
+        y pulsa <b>GENERAR INVITACIÓN</b>.
+      </p>
     </section>
 
     <section class="grid">
@@ -237,13 +351,13 @@
         <h2>Datos de la reunión</h2>
 
         <label for="titleInput">Título de la reunión</label>
-        <input id="titleInput" value="REUNIÓN VIRTUAL">
+        <input id="titleInput" value="REUNIÓN VIRTUAL" autocomplete="off">
 
         <label for="descriptionInput">Descripción</label>
         <textarea id="descriptionInput">Acompáñanos en este espacio de encuentro, diálogo y construcción colectiva.</textarea>
 
         <label for="dateInput">Fecha</label>
-        <input id="dateInput" type="date" value="2026-09-02">
+        <input id="dateInput" type="date">
 
         <label for="startInput">Hora de inicio</label>
         <input id="startInput" type="time" value="09:00">
@@ -252,50 +366,94 @@
         <input id="endInput" type="time" value="10:00">
 
         <label for="meetInput">Enlace de Google Meet</label>
-        <input id="meetInput" type="url" placeholder="https://meet.google.com/abc-defg-hij">
+        <input id="meetInput" type="url" placeholder="https://meet.google.com/abc-defg-hij" autocomplete="off">
 
         <div class="actions">
-          <button class="primary" type="submit">Actualizar invitación</button>
-          <button class="secondary" type="button" id="resetBtn">Restablecer ejemplo</button>
+          <button class="primary" type="submit">GENERAR INVITACIÓN</button>
+
+          <div id="mensajeGeneracion" class="status" role="status" aria-live="polite"></div>
+
+          <div class="share-actions">
+            <button class="secondary" type="button" id="copyInviteBtn" disabled>
+              COPIAR ENLACE DE LA INVITACIÓN
+            </button>
+
+            <button class="whatsapp" type="button" id="whatsappBtn" disabled>
+              COMPARTIR POR WHATSAPP
+            </button>
+          </div>
+
+          <button class="secondary" type="button" id="resetBtn">
+            RESTABLECER EJEMPLO
+          </button>
         </div>
 
         <div class="hint">
-          <b>Importante:</b> pega aquí el enlace que Google Meet te entregue al crear la reunión.
-          Esta versión es local/estática: no guarda reuniones en una base de datos todavía.
+          <b>¿Cómo se usa?</b><br>
+          1. Crea la reunión en Google Meet.<br>
+          2. Copia el enlace que te entregue Meet y pégalo arriba.<br>
+          3. Selecciona la fecha y las horas.<br>
+          4. Pulsa <b>GENERAR INVITACIÓN</b>.<br>
+          5. El botón verde de la tarjeta abrirá directamente la reunión.
         </div>
       </form>
 
       <section class="card-wrap">
         <p class="preview-title">Vista previa de la tarjeta</p>
 
-        <article class="invite">
-          <img class="membrete" src="assets/membrete-diego-maya.jpg" alt="Membrete institucional Diego Maya Salazar">
+        <article class="invite" id="inviteCard">
+          <img
+            class="membrete"
+            src="assets/membrete-diego-maya.jpg"
+            alt="Membrete institucional Diego Maya Salazar"
+          >
 
           <div class="hero">
             <div class="eyebrow">ESTÁS INVITADO(A)</div>
             <h2 class="title" id="outTitle">REUNIÓN VIRTUAL</h2>
-            <p class="description" id="outDescription">Acompáñanos en este espacio de encuentro, diálogo y construcción colectiva.</p>
+            <p class="description" id="outDescription">
+              Acompáñanos en este espacio de encuentro, diálogo y construcción colectiva.
+            </p>
             <div class="meet-icon" aria-hidden="true">▣</div>
           </div>
 
           <div class="details">
             <div class="detail">
               <div class="icon">📅</div>
-              <div><div class="label">FECHA</div><div class="value" id="outDate">02 de septiembre de 2026</div></div>
+              <div>
+                <div class="label">FECHA</div>
+                <div class="value" id="outDate">Fecha por definir</div>
+              </div>
             </div>
+
             <div class="detail">
               <div class="icon">🕘</div>
-              <div><div class="label">HORA</div><div class="value" id="outTime">9:00 a. m. – 10:00 a. m.</div></div>
+              <div>
+                <div class="label">HORA</div>
+                <div class="value" id="outTime">Hora por definir</div>
+              </div>
             </div>
+
             <div class="detail">
               <div class="icon">💻</div>
-              <div><div class="label">MODALIDAD</div><div class="value">Virtual – Google Meet</div></div>
+              <div>
+                <div class="label">MODALIDAD</div>
+                <div class="value">Virtual – Google Meet</div>
+              </div>
             </div>
           </div>
 
           <div class="join">
             <p>Haz clic en el botón para ingresar a la reunión</p>
-            <a id="joinButton" class="join-button disabled" href="#" target="_blank" rel="noopener">INGRESAR A LA REUNIÓN</a>
+            <a
+              id="joinButton"
+              class="join-button disabled"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              INGRESAR A LA REUNIÓN
+            </a>
           </div>
 
           <div class="linkbox">
@@ -314,30 +472,65 @@
   <script>
     const $ = (id) => document.getElementById(id);
 
+    const DEFAULT_TITLE = "REUNIÓN VIRTUAL";
+    const DEFAULT_DESCRIPTION =
+      "Acompáñanos en este espacio de encuentro, diálogo y construcción colectiva.";
+
+    function getTomorrowISO() {
+      const date = new Date();
+      date.setHours(12, 0, 0, 0);
+      date.setDate(date.getDate() + 1);
+
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+
+      return `${y}-${m}-${d}`;
+    }
+
     function capitalize(text) {
       return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
     function formatDate(value) {
       if (!value) return "Fecha por definir";
+
       const [y, m, d] = value.split("-").map(Number);
       const date = new Date(y, m - 1, d);
+
       return new Intl.DateTimeFormat("es-CO", {
-        day: "2-digit", month: "long", year: "numeric"
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
       }).format(date);
     }
 
     function formatTime(value) {
       if (!value) return "Hora por definir";
+
       const [h, min] = value.split(":").map(Number);
       const suffix = h >= 12 ? "p. m." : "a. m.";
       const hour = (h % 12) || 12;
+
       return `${hour}:${String(min).padStart(2, "0")} ${suffix}`;
     }
 
+    function isValidMeetLink(link) {
+      try {
+        const url = new URL(link);
+        return /^https?:$/.test(url.protocol) &&
+          /(^|\.)meet\.google\.com$/i.test(url.hostname);
+      } catch {
+        return false;
+      }
+    }
+
     function updatePreview() {
-      const title = $("titleInput").value.trim() || "REUNIÓN VIRTUAL";
-      const description = $("descriptionInput").value.trim() || "Acompáñanos en este espacio de encuentro.";
+      const title = $("titleInput").value.trim() || DEFAULT_TITLE;
+      const description =
+        $("descriptionInput").value.trim() ||
+        "Acompáñanos en este espacio de encuentro.";
+
       const date = $("dateInput").value;
       const start = $("startInput").value;
       const end = $("endInput").value;
@@ -346,11 +539,14 @@
       $("outTitle").textContent = title;
       $("outDescription").textContent = description;
       $("outDate").textContent = capitalize(formatDate(date));
-      $("outTime").textContent = `${formatTime(start)} – ${formatTime(end)}`;
-      $("outLink").textContent = link || "Pega el enlace de la reunión en el formulario.";
+      $("outTime").textContent =
+        `${formatTime(start)} – ${formatTime(end)}`;
+      $("outLink").textContent =
+        link || "Pega el enlace de la reunión en el formulario.";
 
       const button = $("joinButton");
-      if (/^https?:\/\/.+/i.test(link)) {
+
+      if (isValidMeetLink(link)) {
         button.href = link;
         button.classList.remove("disabled");
       } else {
@@ -359,25 +555,193 @@
       }
     }
 
+    function showStatus(message, type = "ok") {
+      const box = $("mensajeGeneracion");
+      box.textContent = message;
+      box.className = `status ${type}`;
+    }
+
+    function getInvitationData() {
+      return {
+        title: $("titleInput").value.trim() || DEFAULT_TITLE,
+        description:
+          $("descriptionInput").value.trim() ||
+          "Acompáñanos en este espacio de encuentro.",
+        date: $("dateInput").value,
+        start: $("startInput").value,
+        end: $("endInput").value,
+        meet: $("meetInput").value.trim()
+      };
+    }
+
+    function buildInvitationUrl(data) {
+      const url = new URL(window.location.href);
+
+      url.search = new URLSearchParams({
+        titulo: data.title,
+        descripcion: data.description,
+        fecha: data.date,
+        inicio: data.start,
+        fin: data.end,
+        meet: data.meet
+      }).toString();
+
+      return url.toString();
+    }
+
+    function loadFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+
+      if (!params.has("titulo") && !params.has("meet")) {
+        $("dateInput").value = getTomorrowISO();
+        updatePreview();
+        return;
+      }
+
+      $("titleInput").value = params.get("titulo") || DEFAULT_TITLE;
+      $("descriptionInput").value =
+        params.get("descripcion") || DEFAULT_DESCRIPTION;
+      $("dateInput").value = params.get("fecha") || getTomorrowISO();
+      $("startInput").value = params.get("inicio") || "09:00";
+      $("endInput").value = params.get("fin") || "10:00";
+      $("meetInput").value = params.get("meet") || "";
+
+      updatePreview();
+
+      if (isValidMeetLink($("meetInput").value.trim())) {
+        enableShareButtons();
+        showStatus("Invitación cargada desde su enlace.", "ok");
+      }
+    }
+
+    function enableShareButtons() {
+      $("copyInviteBtn").disabled = false;
+      $("whatsappBtn").disabled = false;
+    }
+
+    function generateInvitation() {
+      const data = getInvitationData();
+
+      if (!data.title) {
+        showStatus("Escribe el título de la reunión.", "error");
+        $("titleInput").focus();
+        return;
+      }
+
+      if (!data.date) {
+        showStatus("Selecciona la fecha de la reunión.", "error");
+        $("dateInput").focus();
+        return;
+      }
+
+      if (!data.start || !data.end) {
+        showStatus("Selecciona la hora de inicio y finalización.", "error");
+        return;
+      }
+
+      if (data.end <= data.start) {
+        showStatus(
+          "La hora de finalización debe ser posterior a la hora de inicio.",
+          "error"
+        );
+        return;
+      }
+
+      if (!isValidMeetLink(data.meet)) {
+        showStatus(
+          "Pega un enlace válido de Google Meet, por ejemplo: https://meet.google.com/abc-defg-hij",
+          "error"
+        );
+        $("meetInput").focus();
+        return;
+      }
+
+      updatePreview();
+      enableShareButtons();
+
+      const invitationUrl = buildInvitationUrl(data);
+
+      // La URL generada permite abrir la misma invitación con todos sus datos.
+      window.history.replaceState({}, "", invitationUrl);
+
+      showStatus(
+        "✓ Invitación generada correctamente. Ya puedes copiar su enlace o compartirla por WhatsApp.",
+        "ok"
+      );
+
+      $("card-wrap")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function copyInvitationUrl() {
+      const data = getInvitationData();
+      const invitationUrl = buildInvitationUrl(data);
+
+      try {
+        await navigator.clipboard.writeText(invitationUrl);
+        showStatus("✓ Enlace de la invitación copiado.", "ok");
+      } catch {
+        showStatus(
+          "No fue posible copiar automáticamente. Copia la dirección desde el navegador.",
+          "error"
+        );
+      }
+    }
+
+    function shareWhatsApp() {
+      const data = getInvitationData();
+      const invitationUrl = buildInvitationUrl(data);
+
+      const message =
+        `📢 *${data.title}*\\n\\n` +
+        `📅 Fecha: ${capitalize(formatDate(data.date))}\\n` +
+        `🕘 Hora: ${formatTime(data.start)} – ${formatTime(data.end)}\\n` +
+        `💻 Modalidad: Google Meet\\n\\n` +
+        `${data.description}\\n\\n` +
+        `👉 *Ingresa a la invitación:*\\n${invitationUrl}`;
+
+      window.open(
+        `https://wa.me/?text=${encodeURIComponent(message)}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+
     $("form").addEventListener("submit", (e) => {
       e.preventDefault();
-      updatePreview();
+      generateInvitation();
     });
 
-    ["titleInput","descriptionInput","dateInput","startInput","endInput","meetInput"]
-      .forEach(id => $(id).addEventListener("input", updatePreview));
+    ["titleInput", "descriptionInput", "dateInput", "startInput", "endInput", "meetInput"]
+      .forEach((id) => {
+        $(id).addEventListener("input", () => {
+          updatePreview();
+          $("mensajeGeneracion").className = "status";
+        });
+      });
+
+    $("copyInviteBtn").addEventListener("click", copyInvitationUrl);
+    $("whatsappBtn").addEventListener("click", shareWhatsApp);
 
     $("resetBtn").addEventListener("click", () => {
-      $("titleInput").value = "REUNIÓN VIRTUAL";
-      $("descriptionInput").value = "Acompáñanos en este espacio de encuentro, diálogo y construcción colectiva.";
-      $("dateInput").value = "2026-09-02";
+      $("titleInput").value = DEFAULT_TITLE;
+      $("descriptionInput").value = DEFAULT_DESCRIPTION;
+      $("dateInput").value = getTomorrowISO();
       $("startInput").value = "09:00";
       $("endInput").value = "10:00";
       $("meetInput").value = "";
+
+      $("copyInviteBtn").disabled = true;
+      $("whatsappBtn").disabled = true;
+
+      const cleanUrl = new URL(window.location.href);
+      cleanUrl.search = "";
+      window.history.replaceState({}, "", cleanUrl);
+
       updatePreview();
+      showStatus("Ejemplo restablecido.", "ok");
     });
 
-    updatePreview();
+    loadFromUrl();
   </script>
 </body>
 </html>
