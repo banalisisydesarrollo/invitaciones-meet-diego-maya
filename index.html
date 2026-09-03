@@ -8,6 +8,12 @@
   <meta property="og:title" content="Invitación para reunión virtual">
   <meta property="og:description" content="Invitación para reunión virtual de la Institución Educativa Diego Maya Salazar.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="/api/og">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Invitación para reunión virtual - Institución Educativa Diego Maya Salazar">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/api/og">
   <title>Invitaciones Meet | Diego Maya Salazar</title>
 
   <style>
@@ -575,7 +581,9 @@
     }
 
     function buildInvitationUrl(data) {
-      const url = new URL(window.location.href);
+      // Usamos una ruta dinámica de Vercel para que WhatsApp pueda leer
+      // metadatos Open Graph y mostrar la tarjeta completa de la invitación.
+      const url = new URL("/api/invitacion", window.location.origin);
 
       url.search = new URLSearchParams({
         titulo: data.title,
@@ -692,12 +700,12 @@
       const invitationUrl = buildInvitationUrl(data);
 
       const message =
-        `📢 *${data.title}*\\n\\n` +
-        `📅 Fecha: ${capitalize(formatDate(data.date))}\\n` +
-        `🕘 Hora: ${formatTime(data.start)} – ${formatTime(data.end)}\\n` +
-        `💻 Modalidad: Google Meet\\n\\n` +
-        `${data.description}\\n\\n` +
-        `👉 *Ingresa a la invitación:*\\n${invitationUrl}`;
+        `📢 *${data.title}*\n\n` +
+        `📅 Fecha: ${capitalize(formatDate(data.date))}\n` +
+        `🕘 Hora: ${formatTime(data.start)} – ${formatTime(data.end)}\n` +
+        `💻 Modalidad: Google Meet\n\n` +
+        `${data.description}\n\n` +
+        `👉 *Ingresa a la invitación:*\n${invitationUrl}`;
 
       window.open(
         `https://wa.me/?text=${encodeURIComponent(message)}`,

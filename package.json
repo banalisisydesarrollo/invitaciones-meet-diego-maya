@@ -1,0 +1,9 @@
+{
+  "name": "invitaciones-meet-diego-maya",
+  "private": true,
+  "dependencies": {
+    "@vercel/og": "^1.0.2",
+    "react": "^19.1.1"
+  },
+  "type": "module"
+}
