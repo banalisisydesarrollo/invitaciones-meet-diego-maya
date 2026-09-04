@@ -3,7 +3,6 @@ import { ImageResponse } from '@vercel/og';
 export const config = {
   runtime: 'edge',
 };
-
 function formatDate(value) {
   if (!value) return 'Fecha por definir';
 
