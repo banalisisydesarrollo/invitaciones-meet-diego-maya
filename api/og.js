@@ -1,16 +1,14 @@
 import { ImageResponse } from '@vercel/og';
-import React from 'react';
 
-export const config = {
-  runtime: 'edge',
-};
+export default function handler(req) {
+  const url = new URL(req.url);
 
-export default function handler() {
+  const titulo = url.searchParams.get('titulo') || 'REUNIÓN VIRTUAL';
+
   return new ImageResponse(
-    React.createElement(
-      'div',
-      {
-        style: {
+    (
+      <div
+        style={{
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -21,9 +19,10 @@ export default function handler() {
           fontSize: 60,
           fontWeight: 'bold',
           fontFamily: 'Arial',
-        },
-      },
-      'REUNIÓN VIRTUAL'
+        }}
+      >
+        {titulo}
+      </div>
     ),
     {
       width: 1200,
